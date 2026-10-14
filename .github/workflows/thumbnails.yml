@@ -1,0 +1,53 @@
+# ============================================================
+#  自動產生縮圖
+#  只要 images/uploads/ 有照片新增、替換或刪除（包含從 Pages CMS 後台上傳），
+#  就會自動在 images/thumbs/ 產生／更新／刪除對應縮圖，並提交回 repo。
+#  也可以到 GitHub 的 Actions 分頁手動按「Run workflow」執行。
+# ============================================================
+name: 產生縮圖
+
+on:
+  push:
+    paths:
+      - "images/uploads/**"
+      - "scripts/make_thumbs.py"
+      - ".github/workflows/thumbnails.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# 同一分支同時只跑一個，避免連續上傳時互相衝突
+concurrency:
+  group: thumbnails-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  thumbnails:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 安裝 Pillow
+        run: pip install "pillow>=10"
+
+      - name: 產生縮圖
+        run: python scripts/make_thumbs.py
+
+      - name: 提交縮圖
+        run: |
+          git add -A images/thumbs
+          if git diff --cached --quiet; then
+            echo "縮圖沒有變動，不需提交。"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git commit -m "自動更新縮圖"
+          # 若執行期間有人又推送了新內容，先合併再推送
+          git pull --rebase
+          git push

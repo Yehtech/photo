@@ -1,0 +1,228 @@
+# ============================================================
+#  Pages CMS 後台設定檔
+#  登入後台：https://app.pagescms.org （用 GitHub 帳號登入）
+#  這個檔案決定後台會出現哪些欄位，一般情況下不需要修改。
+# ============================================================
+
+media:
+  input: images/uploads        # 上傳的照片存放在 repo 的這個資料夾
+  output: /images/uploads      # 寫進內容檔裡的路徑
+  rename: safe                 # 自動把檔名轉成安全格式（避免中文檔名或空白造成問題）
+  extensions: [jpg, jpeg, png, webp, gif]
+
+content:
+  # ----------------------------------------------------------
+  # 作品集
+  # ----------------------------------------------------------
+  - name: albums
+    label: 📷 作品集
+    type: file
+    path: content/albums.json
+    format: json
+    list: true
+    fields:
+      - name: title
+        label: 作品名稱
+        type: string
+        required: true
+      - name: slug
+        label: 網址代稱
+        description: 只能用英文小寫、數字和 -，例如 wedding-amy-2026。每組作品不可重複。
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: 只能使用英文小寫、數字和 -
+      - name: category
+        label: 分類
+        type: select
+        required: true
+        options:
+          values:
+            - name: portrait
+              label: 人像／寫真
+            - name: wedding
+              label: 婚禮／婚紗
+            - name: commercial
+              label: 商業／商品
+            - name: landscape
+              label: 風景／旅行
+            - name: event
+              label: 活動紀錄
+            - name: street
+              label: 街拍／紀實
+      - name: featured
+        label: 顯示在首頁精選
+        type: boolean
+      - name: date
+        label: 拍攝日期
+        type: date
+      - name: location
+        label: 拍攝地點
+        type: string
+      - name: cover
+        label: 封面照片
+        type: image
+        required: true
+      - name: description
+        label: 作品介紹
+        description: 可留空。換行會自動分段。
+        type: text
+      - name: photos
+        label: 作品照片
+        description: 可一次選取多張。拖曳可調整順序。
+        type: image
+        options:
+          multiple: true
+
+  # ----------------------------------------------------------
+  # 網站基本設定（名稱、首頁、聯絡方式）
+  # ----------------------------------------------------------
+  - name: site
+    label: ⚙️ 網站設定／首頁
+    type: file
+    path: content/site.json
+    format: json
+    fields:
+      - name: name
+        label: 網站名稱／品牌名稱
+        type: string
+        required: true
+      - name: nameEn
+        label: 英文副標（顯示在名稱旁）
+        type: string
+      - name: logo
+        label: Logo 圖片（可留空，留空會顯示文字名稱）
+        type: image
+      - name: description
+        label: 網站簡介（Google 搜尋結果會顯示這段）
+        type: text
+      - name: heroImages
+        label: 首頁大圖輪播
+        description: 建議 3–5 張橫式照片
+        type: image
+        options:
+          multiple: true
+      - name: heroTitle
+        label: 首頁大標
+        type: string
+      - name: heroSubtitle
+        label: 首頁小標
+        type: string
+      - name: introTitle
+        label: 首頁介紹標題
+        type: string
+      - name: intro
+        label: 首頁介紹文字
+        type: text
+      - name: contact
+        label: 聯絡資訊與社群
+        type: object
+        fields:
+          - name: email
+            label: Email
+            type: string
+          - name: phone
+            label: 電話
+            type: string
+          - name: lineId
+            label: LINE ID
+            type: string
+          - name: lineUrl
+            label: LINE 加好友連結（https://line.me/ti/p/...）
+            type: string
+          - name: instagram
+            label: Instagram 連結
+            type: string
+          - name: facebook
+            label: Facebook 連結
+            type: string
+          - name: location
+            label: 服務地區
+            type: string
+
+  # ----------------------------------------------------------
+  # 關於我
+  # ----------------------------------------------------------
+  - name: about
+    label: 👤 關於我
+    type: file
+    path: content/about.json
+    format: json
+    fields:
+      - name: title
+        label: 標題
+        type: string
+      - name: subtitle
+        label: 副標
+        type: string
+      - name: photo
+        label: 個人照片
+        type: image
+      - name: bio
+        label: 自我介紹
+        description: 換行會自動分段
+        type: text
+      - name: highlights
+        label: 經歷／合作對象
+        type: string
+        list: true
+
+  # ----------------------------------------------------------
+  # 服務與價格
+  # ----------------------------------------------------------
+  - name: services
+    label: 💰 服務與價格
+    type: file
+    path: content/services.json
+    format: json
+    fields:
+      - name: intro
+        label: 開頭說明
+        type: text
+      - name: packages
+        label: 方案
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{name}  {price}"
+        fields:
+          - name: name
+            label: 方案名稱
+            type: string
+            required: true
+          - name: price
+            label: 價格（例：NT$ 6,800 起）
+            type: string
+          - name: duration
+            label: 時數／規格（例：2 小時）
+            type: string
+          - name: image
+            label: 方案示意圖（可留空）
+            type: image
+          - name: description
+            label: 方案說明
+            type: text
+          - name: includes
+            label: 包含項目
+            type: string
+            list: true
+          - name: recommended
+            label: 標示為推薦方案
+            type: boolean
+      - name: process
+        label: 預約流程
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: 步驟名稱
+            type: string
+          - name: text
+            label: 說明
+            type: text
+      - name: notes
+        label: 注意事項
+        type: string
+        list: true

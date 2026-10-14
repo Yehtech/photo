@@ -1,0 +1,104 @@
+[
+  {
+    "title": "午後的窗邊",
+    "slug": "afternoon-window",
+    "category": "portrait",
+    "featured": true,
+    "date": "2026-05-12",
+    "location": "台北 大稻埕",
+    "cover": "/images/uploads/portrait-01.jpg",
+    "description": "一個慵懶的午後，在老屋的窗邊用自然光完成的個人寫真。\n不需要刻意擺姿勢，只要做自己就好。",
+    "photos": [
+      "/images/uploads/portrait-01.jpg",
+      "/images/uploads/portrait-02.jpg",
+      "/images/uploads/portrait-03.jpg",
+      "/images/uploads/portrait-04.jpg",
+      "/images/uploads/portrait-05.jpg"
+    ]
+  },
+  {
+    "title": "Amy & Ken 婚禮紀錄",
+    "slug": "wedding-amy-ken",
+    "category": "wedding",
+    "featured": true,
+    "date": "2026-03-21",
+    "location": "台中",
+    "cover": "/images/uploads/wedding-01.jpg",
+    "description": "從清晨的準備到晚宴的最後一支舞，完整記錄屬於兩人的一天。",
+    "photos": [
+      "/images/uploads/wedding-01.jpg",
+      "/images/uploads/wedding-02.jpg",
+      "/images/uploads/wedding-03.jpg",
+      "/images/uploads/wedding-04.jpg",
+      "/images/uploads/wedding-05.jpg"
+    ]
+  },
+  {
+    "title": "品牌形象・咖啡與日常",
+    "slug": "brand-coffee",
+    "category": "commercial",
+    "featured": true,
+    "date": "2026-02-08",
+    "location": "台北",
+    "cover": "/images/uploads/commercial-01.jpg",
+    "description": "為獨立咖啡品牌拍攝的形象與商品照，以溫暖的色調呈現品牌日常。",
+    "photos": [
+      "/images/uploads/commercial-01.jpg",
+      "/images/uploads/commercial-02.jpg",
+      "/images/uploads/commercial-03.jpg",
+      "/images/uploads/commercial-04.jpg",
+      "/images/uploads/commercial-05.jpg"
+    ]
+  },
+  {
+    "title": "山與海之間",
+    "slug": "between-mountains-and-sea",
+    "category": "landscape",
+    "featured": true,
+    "date": "2025-11-02",
+    "location": "花蓮・台東",
+    "cover": "/images/uploads/landscape-02.jpg",
+    "description": "沿著東海岸慢慢走，記錄山、海與天空交會的瞬間。",
+    "photos": [
+      "/images/uploads/landscape-01.jpg",
+      "/images/uploads/landscape-02.jpg",
+      "/images/uploads/landscape-03.jpg",
+      "/images/uploads/landscape-04.jpg",
+      "/images/uploads/landscape-05.jpg",
+      "/images/uploads/landscape-06.jpg"
+    ]
+  },
+  {
+    "title": "年度品牌發表會",
+    "slug": "annual-launch-event",
+    "category": "event",
+    "featured": false,
+    "date": "2025-09-18",
+    "location": "台北 信義區",
+    "cover": "/images/uploads/event-01.jpg",
+    "description": "企業年度發表會活動紀錄，捕捉現場的氛圍與每個重要時刻。",
+    "photos": [
+      "/images/uploads/event-01.jpg",
+      "/images/uploads/event-02.jpg",
+      "/images/uploads/event-03.jpg",
+      "/images/uploads/event-04.jpg"
+    ]
+  },
+  {
+    "title": "城市散步",
+    "slug": "city-walk",
+    "category": "street",
+    "featured": true,
+    "date": "2025-07-30",
+    "location": "台北・東京",
+    "cover": "/images/uploads/street-01.jpg",
+    "description": "在城市裡漫無目的地散步，記錄那些擦肩而過的日常風景。",
+    "photos": [
+      "/images/uploads/street-01.jpg",
+      "/images/uploads/street-02.jpg",
+      "/images/uploads/street-03.jpg",
+      "/images/uploads/street-04.jpg",
+      "/images/uploads/street-05.jpg"
+    ]
+  }
+]

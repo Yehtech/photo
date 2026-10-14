@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>聯絡我</title>
+  <meta name="description" content="">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Noto+Sans+TC:wght@300;400&family=Noto+Serif+TC:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="contact">
+  <header class="site-header" id="site-header"></header>
+  <main id="app">
+    <div class="page container">
+      <header class="page-head">
+        <span class="eyebrow">Contact</span>
+        <h1>預約諮詢</h1>
+        <p>告訴我你想拍什麼、預計的日期與地點，我會在 1–2 個工作天內回覆你。</p>
+      </header>
+
+      <div class="contact">
+        <!-- 聯絡資訊由 app.js 依 content/site.json 填入 -->
+        <aside class="contact-info" id="contact-info"></aside>
+
+        <!--
+          表單由 Netlify Forms 接收（網站需部署在 Netlify 才能送出）。
+          送出的內容可在 Netlify 後台 Forms 查看，也可設定寄到你的 Email。
+          若改欄位名稱，Netlify 需重新部署才會偵測到。
+        -->
+        <form class="form" id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="contact">
+          <p class="visually-hidden" aria-hidden="true">
+            <label>請勿填寫此欄 <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+          </p>
+
+          <div class="field">
+            <label for="f-name">姓名 <span class="req">*</span></label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="f-email">Email <span class="req">*</span></label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="f-phone">電話</label>
+            <input id="f-phone" name="phone" type="tel" autocomplete="tel">
+          </div>
+          <div class="field">
+            <label for="f-line">LINE ID</label>
+            <input id="f-line" name="line" type="text">
+          </div>
+          <div class="field">
+            <label for="f-type">拍攝類型 <span class="req">*</span></label>
+            <select id="f-type" name="type" required>
+              <option value="">請選擇</option>
+              <!-- 其餘選項由 app.js 依作品分類自動加入 -->
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-date">預計拍攝日期</label>
+            <input id="f-date" name="date" type="date">
+          </div>
+          <div class="field full">
+            <label for="f-message">想拍什麼？ <span class="req">*</span></label>
+            <textarea id="f-message" name="message" placeholder="例如：拍攝人數、地點、想要的風格、預算範圍⋯⋯" required></textarea>
+          </div>
+          <div class="full">
+            <button class="btn btn--solid" type="submit">送出</button>
+          </div>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer" id="site-footer"></footer>
+  <script src="assets/js/app.js" defer></script>
+</body>
+</html>
