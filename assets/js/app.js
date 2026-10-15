@@ -99,10 +99,18 @@
       </div>`;
 
     const toggle = $('.nav-toggle', header);
+    const nav = $('.nav', header);
     toggle.addEventListener('click', () => {
       const open = document.body.classList.toggle('nav-open');
       toggle.setAttribute('aria-expanded', open);
       document.body.style.overflow = open ? 'hidden' : '';
+    });
+    nav.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => {
+        document.body.classList.remove('nav-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
     });
 
     // 首頁 header 在大圖上方時透明
@@ -220,15 +228,17 @@
 
       $('#app').innerHTML = `
         <div class="page container">
-          <header class="page-head">
-            <span class="eyebrow">Portfolio</span>
-            <h1>作品集</h1>
-          </header>
-          <div class="filter" role="tablist">
-            <button data-cat="all">全部</button>
-            ${used.map((c) => `<button data-cat="${c.key}">${c.label}</button>`).join('')}
+          <div class="page-sheet">
+            <header class="page-head">
+              <span class="eyebrow">Portfolio</span>
+              <h1>作品集</h1>
+            </header>
+            <div class="filter" role="tablist">
+              <button data-cat="all">全部</button>
+              ${used.map((c) => `<button data-cat="${c.key}">${c.label}</button>`).join('')}
+            </div>
+            <div class="album-grid" id="grid"></div>
           </div>
-          <div class="album-grid" id="grid"></div>
         </div>`;
 
       const grid = $('#grid');
@@ -266,23 +276,25 @@
 
       $('#app').innerHTML = `
         <div class="page container">
-          <header class="album-head">
-            <span class="eyebrow">${esc(catLabel(a.category))}</span>
-            <h1>${esc(a.title)}</h1>
-            <div class="album-meta">
-              ${a.date ? `<span>${esc(String(a.date).slice(0, 10).replace(/-/g, '.'))}</span>` : ''}
-              ${a.location ? `<span>${esc(a.location)}</span>` : ''}
-              <span>${photos.length} Photos</span>
+          <div class="page-sheet">
+            <header class="album-head">
+              <span class="eyebrow">${esc(catLabel(a.category))}</span>
+              <h1>${esc(a.title)}</h1>
+              <div class="album-meta">
+                ${a.date ? `<span>${esc(String(a.date).slice(0, 10).replace(/-/g, '.'))}</span>` : ''}
+                ${a.location ? `<span>${esc(a.location)}</span>` : ''}
+                <span>${photos.length} Photos</span>
+              </div>
+              <div class="album-desc">${paragraphs(a.description)}</div>
+            </header>
+            <div class="masonry">
+              ${photos.map((p, i) => `<figure class="reveal" data-index="${i}">${imgTag(p, { alt: `${a.title} ${i + 1}`, useThumb: true, eager: i < 3 })}</figure>`).join('')}
             </div>
-            <div class="album-desc">${paragraphs(a.description)}</div>
-          </header>
-          <div class="masonry">
-            ${photos.map((p, i) => `<figure class="reveal" data-index="${i}">${imgTag(p, { alt: `${a.title} ${i + 1}`, useThumb: true, eager: i < 3 })}</figure>`).join('')}
+            <nav class="album-nav">
+              ${prev ? `<a href="album.html?id=${encodeURIComponent(prev.slug)}"><small>← PREV</small><span>${esc(prev.title)}</span></a>` : '<a href="works.html"><small>BACK</small><span>回作品集</span></a>'}
+              ${next ? `<a href="album.html?id=${encodeURIComponent(next.slug)}"><small>NEXT →</small><span>${esc(next.title)}</span></a>` : '<a href="works.html"><small>BACK</small><span>回作品集</span></a>'}
+            </nav>
           </div>
-          <nav class="album-nav">
-            ${prev ? `<a href="album.html?id=${encodeURIComponent(prev.slug)}"><small>← PREV</small><span>${esc(prev.title)}</span></a>` : '<span></span>'}
-            ${next ? `<a href="album.html?id=${encodeURIComponent(next.slug)}"><small>NEXT →</small><span>${esc(next.title)}</span></a>` : ''}
-          </nav>
         </div>`;
 
       const lb = lightbox(photos.map(src));
@@ -297,14 +309,18 @@
       setMeta(site, d.title || '關於我');
       $('#app').innerHTML = `
         <div class="page container">
-          <div class="about">
-            <div class="about__img reveal">${d.photo ? imgTag(d.photo, { alt: site.name, eager: true }) : ''}</div>
-            <div class="about__text reveal">
+          <div class="page-sheet">
+            <header class="page-head">
               <span class="eyebrow">${esc(d.subtitle || 'About')}</span>
               <h1>${esc(d.title || '關於我')}</h1>
-              ${paragraphs(d.bio)}
-              ${(d.highlights || []).length ? `<ul class="highlights">${d.highlights.map((h) => `<li>${esc(h)}</li>`).join('')}</ul>` : ''}
-              <a class="btn" href="contact.html">與我聯絡</a>
+            </header>
+            <div class="about">
+              <div class="about__img reveal">${d.photo ? imgTag(d.photo, { alt: site.name, eager: true }) : ''}</div>
+              <div class="about__text reveal">
+                ${paragraphs(d.bio)}
+                ${(d.highlights || []).length ? `<ul class="highlights">${d.highlights.map((h) => `<li>${esc(h)}</li>`).join('')}</ul>` : ''}
+                <div style="margin-top:36px"><a class="btn btn--solid" href="contact.html">與我聯絡</a></div>
+              </div>
             </div>
           </div>
         </div>`;
@@ -316,8 +332,8 @@
       setMeta(site, '服務與價格');
       const pk = d.packages || [];
       $('#app').innerHTML = `
-        <div class="page">
-          <div class="container">
+        <div class="page container">
+          <div class="page-sheet">
             <header class="page-head">
               <span class="eyebrow">Services & Pricing</span>
               <h1>服務與價格</h1>
@@ -337,22 +353,20 @@
                   </div>
                 </article>`).join('')}
             </div>
-          </div>
 
-          ${(d.process || []).length ? `
-          <section class="section section--soft" style="margin-top:clamp(64px,9vw,120px)">
-            <div class="container">
-              <header class="page-head reveal"><span class="eyebrow">Process</span><h2 style="font-size:clamp(22px,2.6vw,30px)">預約流程</h2></header>
+            ${(d.process || []).length ? `
+            <section style="margin-top:clamp(56px,7vw,88px);padding-top:48px;border-top:1px solid var(--line)">
+              <header class="page-head reveal" style="margin-bottom:36px"><span class="eyebrow">Process</span><h2 style="font-size:clamp(22px,2.6vw,30px)">預約流程</h2></header>
               <div class="steps">${d.process.map((s) => `<div class="step reveal"><h3>${esc(s.title)}</h3>${paragraphs(s.text)}</div>`).join('')}</div>
-            </div>
-          </section>` : ''}
+            </section>` : ''}
 
-          ${(d.notes || []).length ? `
-          <section class="container" style="padding-top:clamp(56px,8vw,96px)">
-            <header class="page-head reveal" style="margin-bottom:28px"><span class="eyebrow">Notes</span><h2 style="font-size:22px">注意事項</h2></header>
-            <ul class="notes reveal">${d.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
-            <p style="text-align:center;margin-top:48px"><a class="btn btn--solid" href="contact.html">預約諮詢</a></p>
-          </section>` : ''}
+            ${(d.notes || []).length ? `
+            <section style="margin-top:clamp(48px,6vw,72px);padding-top:40px;border-top:1px solid var(--line)">
+              <header class="page-head reveal" style="margin-bottom:24px"><span class="eyebrow">Notes</span><h2 style="font-size:22px">注意事項</h2></header>
+              <ul class="notes reveal">${d.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
+              <p style="text-align:center;margin-top:40px"><a class="btn btn--solid" href="contact.html">預約諮詢</a></p>
+            </section>` : ''}
+          </div>
         </div>`;
     },
 
