@@ -10,6 +10,10 @@ on:
   push:
     paths:
       - "images/uploads/**"
+      - "content/**"
+      - "seo.config.json"
+      - "scripts/build-seo.cjs"
+      - "scripts/write-site-metadata.cjs"
       - "scripts/make_thumbs.py"
       - ".github/workflows/thumbnails.yml"
   workflow_dispatch:
@@ -38,9 +42,18 @@ jobs:
       - name: 產生縮圖
         run: python scripts/make_thumbs.py
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: 更新靜態內容與 SEO
+        run: node scripts/build-seo.cjs
+
       - name: 提交縮圖
         run: |
           git add -A images/thumbs
+          git add -- '*.html' assets/js/image-sizes.js robots.txt scripts/generated-albums.json
+          if [ -f sitemap.xml ]; then git add sitemap.xml; fi
           if git diff --cached --quiet; then
             echo "縮圖沒有變動，不需提交。"
             exit 0

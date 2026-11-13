@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yehtech.github.io/photo/sitemap.xml

@@ -52,7 +52,9 @@
     const full = src(url);
     const s = useThumb ? thumb(url) : full;
     const fallback = s !== full ? ` onerror="this.onerror=null;this.src='${esc(full)}'"` : '';
-    return `<img src="${esc(s)}" alt="${esc(alt)}"${cls ? ` class="${cls}"` : ''} loading="${eager ? 'eager' : 'lazy'}" decoding="async"${fallback}>`;
+    const dimensions = window.PHOTO_IMAGE_SIZES?.[s];
+    const size = dimensions ? ` width="${dimensions.width}" height="${dimensions.height}"` : '';
+    return `<img src="${esc(s)}" alt="${esc(alt)}"${size}${cls ? ` class="${cls}"` : ''} loading="${eager ? 'eager' : 'lazy'}" decoding="async"${fallback}>`;
   };
 
   const cache = {};
@@ -67,10 +69,16 @@
   };
 
   const setMeta = (site, pageTitle, desc) => {
-    document.title = pageTitle ? `${pageTitle}｜${site.name}` : `${site.name} ${site.nameEn || ''}`.trim();
+    const initialTitle = document.querySelector('title')?.dataset.seoTitle;
+    const dynamicAlbum = document.body.dataset.page === 'album';
+    document.title = !dynamicAlbum && initialTitle ? initialTitle : pageTitle ? `${pageTitle}｜${site.name}` : `${site.name} ${site.nameEn || ''}`.trim();
     let m = $('meta[name="description"]');
     if (!m) { m = document.createElement('meta'); m.name = 'description'; document.head.appendChild(m); }
-    m.content = desc || site.description || '';
+    m.content = desc || m.dataset.seoDescription || site.description || '';
+    for (const [key, value] of [['og:title', document.title], ['og:description', m.content]]) {
+      const tag = document.querySelector(`meta[property="${key}"]`);
+      if (tag) tag.content = value;
+    }
   };
 
   const socialLinks = (c = {}) => {
@@ -142,7 +150,7 @@
   }
 
   const albumCard = (a, i = 0) => `
-    <a class="album-card reveal" style="transition-delay:${(i % 3) * 90}ms" href="album.html?id=${encodeURIComponent(a.slug)}">
+    <a class="album-card reveal" style="transition-delay:${(i % 3) * 90}ms" href="album-${encodeURIComponent(a.slug)}.html">
       <div class="album-card__img">${imgTag(a.cover || (a.photos || [])[0], { alt: a.title, useThumb: true })}</div>
       <div class="album-card__body">
         <h3 class="album-card__title">${esc(a.title)}</h3>
@@ -262,12 +270,21 @@
     /* ---------- 單一作品頁 ---------- */
     async album(site) {
       const albums = await load('albums');
-      const id = new URLSearchParams(location.search).get('id');
+      const id = document.body.dataset.albumId || new URLSearchParams(location.search).get('id');
       const idx = albums.findIndex((a) => a.slug === id);
       const a = albums[idx];
       if (!a) {
-        setMeta(site, '找不到作品');
+        setMeta(site, '找不到作品', '此作品不存在，請返回作品集瀏覽其他攝影作品。');
+        const robots = document.createElement('meta');
+        robots.name = 'robots';
+        robots.content = 'noindex, follow';
+        document.head.appendChild(robots);
         $('#app').innerHTML = `<div class="page container"><p class="empty">找不到這組作品。<br><br><a class="btn" href="works.html">回作品集</a></p></div>`;
+        return;
+      }
+      // Keep old query-string links working on static hosting too.
+      if (!document.body.dataset.albumId) {
+        location.replace(`album-${encodeURIComponent(a.slug)}.html`);
         return;
       }
       setMeta(site, a.title, (a.description || '').split('\n')[0]);
@@ -291,8 +308,8 @@
               ${photos.map((p, i) => `<figure class="reveal" data-index="${i}">${imgTag(p, { alt: `${a.title} ${i + 1}`, useThumb: true, eager: i < 3 })}</figure>`).join('')}
             </div>
             <nav class="album-nav">
-              ${prev ? `<a href="album.html?id=${encodeURIComponent(prev.slug)}"><small>← PREV</small><span>${esc(prev.title)}</span></a>` : '<a href="works.html"><small>BACK</small><span>回作品集</span></a>'}
-              ${next ? `<a href="album.html?id=${encodeURIComponent(next.slug)}"><small>NEXT →</small><span>${esc(next.title)}</span></a>` : '<a href="works.html"><small>BACK</small><span>回作品集</span></a>'}
+              ${prev ? `<a href="album-${encodeURIComponent(prev.slug)}.html"><small>← PREV</small><span>${esc(prev.title)}</span></a>` : '<a href="works.html"><small>BACK</small><span>回作品集</span></a>'}
+              ${next ? `<a href="album-${encodeURIComponent(next.slug)}.html"><small>NEXT →</small><span>${esc(next.title)}</span></a>` : '<a href="works.html"><small>BACK</small><span>回作品集</span></a>'}
             </nav>
           </div>
         </div>`;
@@ -350,6 +367,9 @@
                     ${p.duration ? `<div class="package__duration">${esc(p.duration)}</div>` : ''}
                     ${p.description ? `<div class="package__desc">${paragraphs(p.description)}</div>` : ''}
                     ${(p.includes || []).length ? `<ul>${p.includes.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
+                    <div style="margin-top:24px;">
+                      <a class="btn btn--solid" style="width:100%;text-align:center;display:block;" href="contact.html?type=${encodeURIComponent(p.name)}">預約此方案</a>
+                    </div>
                   </div>
                 </article>`).join('')}
             </div>
@@ -372,7 +392,7 @@
 
     /* ---------- 聯絡我 ---------- */
     async contact(site) {
-      setMeta(site, '聯絡我');
+      setMeta(site, '預約諮詢');
       const c = site.contact || {};
       const info = [
         c.email && ['Email', `<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>`],
@@ -389,28 +409,117 @@
         <div class="social" style="margin-top:32px">${socialLinks(c)}</div>`;
 
       const sel = $('#f-type');
-      sel.insertAdjacentHTML('beforeend', CATEGORIES.map((x) => `<option>${x.label}</option>`).join('') + '<option>其他</option>');
+      sel.innerHTML = '<option value="">請選擇拍攝類型</option>' + 
+        CATEGORIES.map((x) => `<option value="${esc(x.label)}">${esc(x.label)}</option>`).join('') +
+        '<option value="個人寫真">個人寫真方案</option><option value="婚禮紀錄">婚禮紀錄方案</option><option value="商業／品牌攝影">商業／品牌攝影方案</option><option value="其他">其他需求</option>';
+
+      // 檢查網址是否有傳入預約方案參數（例如 contact.html?type=婚禮紀錄）
+      const urlParams = new URLSearchParams(location.search);
+      const reqType = urlParams.get('type') || urlParams.get('package');
+      if (reqType) {
+        for (const opt of sel.options) {
+          if (opt.value && (opt.value.includes(reqType) || reqType.includes(opt.value))) {
+            opt.selected = true;
+            break;
+          }
+        }
+        const msgEl = $('#f-message');
+        if (msgEl && !msgEl.value) {
+          msgEl.placeholder = `預約方案：【${reqType}】\n1. 預計拍攝地點：\n2. 拍攝人數或主軸：\n3. 風格參考或特別需求：`;
+        }
+      }
 
       const form = $('#contact-form');
       const status = $('#form-status');
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = form.querySelector('button[type="submit"]');
-        btn.disabled = true; status.className = 'form-status'; status.textContent = '送出中…';
+        btn.disabled = true;
+        status.className = 'form-status';
+        status.textContent = '預約單送出中，請稍候…';
+
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+
+        let isSuccess = false;
+        let bookingData = null;
+
+        // 優先嘗試：本機或獨立後端 API (/api/bookings)
         try {
-          const res = await fetch('/', {
+          const res = await fetch('/api/bookings', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(new FormData(form)).toString(),
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
           });
-          if (!res.ok) throw new Error(res.status);
-          form.reset();
-          status.className = 'form-status is-ok';
-          status.textContent = '已收到你的訊息，謝謝！我會盡快與你聯繫。';
+          if (res.ok) {
+            const json = await res.json();
+            if (json.success) {
+              isSuccess = true;
+              bookingData = json;
+            }
+          }
         } catch (err) {
+          // 本機無 /api/bookings，繼續嘗試 Netlify Forms
+        }
+
+        // 次要嘗試：Netlify Forms POST
+        if (!isSuccess) {
+          try {
+            const netlifyRes = await fetch('/', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: new URLSearchParams(formData).toString(),
+            });
+            if (netlifyRes.ok) {
+              isSuccess = true;
+              bookingData = {
+                bookingNumber: 'PHO-' + new Date().toISOString().slice(0, 10).replace(/-/g, '') + '-' + Math.floor(1000 + Math.random() * 9000),
+                message: '已收到你的預約需求，我會盡快與你聯繫！'
+              };
+            }
+          } catch (netErr) {
+            // Netlify 亦無法連線
+          }
+        }
+
+        // 成功建立預約：顯示精美預約收據卡片
+        if (isSuccess && bookingData) {
+          const bNum = bookingData.bookingNumber || ('PHO-' + Math.floor(100000 + Math.random() * 900000));
+          form.style.display = 'none';
+          status.className = 'form-status is-ok';
+          status.innerHTML = `
+            <div style="border:1px solid var(--text);padding:32px 28px;background:#fff;margin-top:16px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:20px;">
+                <span style="font-family:var(--font-display);font-size:24px;letter-spacing:.08em;">LUMEN Booking Receipt</span>
+                <span style="background:#3c7a4c;color:#fff;font-size:11px;letter-spacing:.2em;padding:4px 10px;text-transform:uppercase;">預約已成立</span>
+              </div>
+              <h3 style="font-size:18px;margin-bottom:8px;">預約單號：<span style="font-family:monospace;font-weight:bold;">${esc(bNum)}</span></h3>
+              <p style="color:var(--text-soft);font-size:14px;margin-bottom:18px;">
+                親愛的 <strong>${esc(payload.name)}</strong> 您好，已成功收到您的【<strong>${esc(payload.type || '攝影方案')}</strong>】預約申請！
+              </p>
+              <div style="background:var(--bg-soft);padding:18px;border-radius:4px;font-size:14px;line-height:1.8;margin-bottom:20px;">
+                <div>預計拍攝日期：<strong>${esc(payload.date || '待確認')}</strong></div>
+                <div>聯絡手機：<strong>${esc(payload.phone || '未提供')}</strong></div>
+                <div>電子信箱：<strong>${esc(payload.email || '')}</strong></div>
+                ${payload.line ? `<div>LINE ID：<strong>${esc(payload.line)}</strong></div>` : ''}
+                <div style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:13px;color:var(--accent);">
+                  ＊ 提醒：確認檔期細節後，將提供正式報價並預收 30% 訂金保留檔期。
+                </div>
+              </div>
+              <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                <button class="btn btn--solid" onclick="location.reload()">再填一筆預約</button>
+                ${c.lineUrl ? `<a class="btn" href="${esc(c.lineUrl)}" target="_blank" rel="noopener">加入 LINE 直接聯繫</a>` : ''}
+              </div>
+            </div>
+          `;
+        } else {
+          // 備援方案：若無後端環境且 Netlify 失敗，提供 1-Click Email 與 LINE 傳送，絕不流失客戶
           status.className = 'form-status is-err';
-          status.innerHTML = `送出失敗，請稍後再試，或直接來信 <a href="mailto:${esc(c.email || '')}">${esc(c.email || '')}</a>`;
-        } finally {
+          const mailSubject = encodeURIComponent(`【攝影預約】${payload.name} - ${payload.type}`);
+          const mailBody = encodeURIComponent(`姓名：${payload.name}\n電話：${payload.phone}\nLINE：${payload.line}\n類型：${payload.type}\n預計日期：${payload.date}\n需求內容：\n${payload.message}`);
+          status.innerHTML = `
+            伺服器連線受限。請直接點此 <a class="btn btn--solid" style="display:inline-block;margin-top:8px;padding:6px 16px;font-size:13px;" href="mailto:${esc(c.email || 'hello@example.com')}?subject=${mailSubject}&body=${mailBody}">以 Email 一鍵送出預約</a>，或透過 LINE：<strong>${esc(c.lineId || '')}</strong> 直接聯繫！
+          `;
           btn.disabled = false;
         }
       });
@@ -479,6 +588,7 @@
     .catch((err) => {
       console.error(err);
       const app = $('#app');
-      if (app) app.innerHTML = `<div class="page container"><p class="empty">內容載入失敗：${esc(err.message)}<br>（若在本機預覽，請用本機伺服器開啟，不能直接雙擊 HTML 檔）</p></div>`;
+      // A failed API/JSON request must not erase pre-rendered useful content.
+      if (app && !app.querySelector('h1')) app.innerHTML = `<div class="page container"><p class="empty">內容載入失敗：${esc(err.message)}<br>（若在本機預覽，請用本機伺服器開啟，不能直接雙擊 HTML 檔）</p></div>`;
     });
 })();

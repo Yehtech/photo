@@ -4,3 +4,21 @@ __pycache__/
 Thumbs.db
 desktop.ini
 .vscode/
+
+.env
+
+# Local-only files and dependencies
+node_modules/
+.agents/
+.cursor/
+.codex/
+.env*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.log
+__pycache__/
+# Booking records must stay local
+data/
