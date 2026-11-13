@@ -1,3 +1,5 @@
+> 2026-11-14 部署更新：網站已發布到 GitHub Pages，正式網址、canonical 與 sitemap 已設定，線上檢查 219 項通過。下文保留 SEO 修正階段紀錄；現行部署狀態以 [GITHUB_PUBLISH_RESULTS.md](GITHUB_PUBLISH_RESULTS.md) 與 [GITHUB_DEPLOYMENT.md](GITHUB_DEPLOYMENT.md) 為準。
+
 # 四站 SEO 稽核與修正紀錄
 
 更新：2026-11-13，第二輪修正後狀態。第一輪報告已封存。

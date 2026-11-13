@@ -4,6 +4,7 @@ const path=require('node:path');
 const root=path.resolve(__dirname,'..');
 const config=JSON.parse(fs.readFileSync(path.join(root,'seo.config.json'),'utf8'));
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const decode=s=>String(s).replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
 const raw=(process.env.SEO_SITE_URL || config.siteUrl || '').trim();
 let base;
 if(raw) {
@@ -18,14 +19,28 @@ for(const file of files) {
   const target=path.join(root,file);let html=fs.readFileSync(target,'utf8');
   if(/<meta\b[^>]*name="robots"[^>]*content="[^"]*noindex/i.test(html))continue;
   html=html.replace(/\s*<!-- SITE_SEO_START -->[\s\S]*?<!-- SITE_SEO_END -->/g,'');
-  const org={'@context':'https://schema.org','@type':'Organization',name};
+  const page=config.pages?.[file] || {};
+  const org={'@context':'https://schema.org','@type':'Organization',name:page.organizationName || name};
   const tags=[];
+  const title=decode(html.match(/<title[^>]*>([\s\S]*?)<\/title>/)?.[1] || '');
+  const description=decode(html.match(/<meta name="description" content="([^"]*)"/)?.[1] || '');
+  if(!html.includes('property="og:title"'))tags.push(`<meta property="og:title" content="${esc(title)}">`);
+  if(!html.includes('property="og:description"'))tags.push(`<meta property="og:description" content="${esc(description)}">`);
+  if(!html.includes('property="og:type"'))tags.push('<meta property="og:type" content="website">');
+  if(!html.includes('property="og:locale"'))tags.push('<meta property="og:locale" content="zh_TW">');
+  if(!html.includes('name="twitter:card"'))tags.push('<meta name="twitter:card" content="summary_large_image">');
   if(base) {
     const url=new URL(file==='index.html'?'./':file,base).href;
     urls.push(url);org.url=base.href;
     tags.push(`<link rel="canonical" href="${esc(url)}">`,`<meta property="og:url" content="${esc(url)}">`);
-    if(config.shareImage) {
-      const img=new URL(config.shareImage.replace(/^\//,''),base).href;
+    let shareImage=page.shareImage || config.shareImage;
+    const albumId=html.match(/data-album-id="([^"]+)"/)?.[1];
+    if(albumId && fs.existsSync(path.join(root,'content/albums.json'))){
+      const albums=JSON.parse(fs.readFileSync(path.join(root,'content/albums.json'),'utf8'));
+      shareImage=albums.find(album=>album.slug===albumId)?.cover || shareImage;
+    }
+    if(shareImage) {
+      const img=new URL(shareImage.replace(/^\//,''),base).href;
       tags.push(`<meta property="og:image" content="${esc(img)}">`);
     }
   }
