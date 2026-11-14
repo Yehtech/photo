@@ -35,3 +35,4 @@ GitHub Pages 是靜態託管，不執行 Node.js 或 Python。photo 的作品展
 ETK 與 photo 的既有表單不因這次發布就代表已串好收件服務。請以實際收件驗證為準；本次檢查不送出表單，也不建立測試訂單。
 
 本文件先記錄設定與操作流程；實際發布結果以 GITHUB_PUBLISH_RESULTS.md 為準。
+實際 Git 工作副本在 D:/CURSOR/github-publish-2026-11-14/；WEB 下仍為原始編輯目錄。同步腳本與刪除檔案注意事項見 GITHUB_PUBLISH_RESULTS.md。copy3 首頁樣式使用 npm run build:luxury-css。

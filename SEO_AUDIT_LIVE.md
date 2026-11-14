@@ -15,7 +15,7 @@
 | 優先級 | 發現與證據 | 影響 | 修正 |
 | --- | --- | --- | --- |
 | P1 | copy3/index.html 是 ÉVÈRA ATELIER 設計稿，但共用產生器輸出 ETK Organization | 結構化資料與可見品牌不一致 | 在 seo.config.json 加入首頁專屬 organizationName，保留其他 ETK 內頁原品牌；沒有把精品稿強行改成 ETK |
-| P2 | copy3 首頁在 head 載入 cdn.tailwindcss.com 並於瀏覽器產生 CSS | 增加外部與執行時依賴 | 把原本 theme 原樣移入 tailwind.config.js，用已安裝的 Tailwind 編譯本機 CSS，移除 CDN 與 inline 設定 |
+| P2 | copy3 首頁在 head 載入 cdn.tailwindcss.com 並於瀏覽器產生 CSS | 增加外部與執行時依賴 | 把原本 theme 原樣移入 tailwind.luxury.config.js，用已安裝的 Tailwind 編譯本機 CSS，移除 CDN 與 inline 設定 |
 | P2 | copy3 缺少 OG 標題／描述等分享設定，首頁分享圖卻是 ETK 圖 | 分享主題不符 | 產生器從頁面標題／描述補齊 OG，首頁改用實際精品主視覺；補 ÉVÈRA 圖示 |
 | P2 | PHOTO 各作品共用全站風景分享圖 | 婚禮、人像、商業作品的預覽圖不符內容 | 從 content/albums.json 讀取每組作品 cover，產生作品專屬絕對網址 og:image |
 | P2 | PHOTO 首頁 H1 只有 Light, Moments & Stories | 主標題未直接表達服務類型 | 改為「人像・婚禮・商業攝影」，保留原有副標語與服務內容 |
@@ -35,6 +35,10 @@
 ## 維護
 
 - ETK、copy、copy2、PHOTO：修改內容後執行 `node scripts/build-seo.cjs`。
-- copy3：樣式修改執行 `npm run build:css`，metadata 修改執行 `node scripts/write-site-metadata.cjs`。
+- copy3：首頁樣式修改執行 `npm run build:luxury-css`（其他內頁保留 `npm run build:css`），metadata 修改執行 `node scripts/write-site-metadata.cjs`。
 - 各站 `seo.config.json` 的 `pages` 可對特定檔案設定 organizationName、shareImage；PHOTO 的作品封面自動取自 JSON。
 - 完整原始專案和 ETK 公開靜態網站是不同儲存庫，需同步更新兩者；操作流程見 GITHUB_DEPLOYMENT.md。
+
+## 最終線上複查
+
+2026-11-14 08:25（台灣時間）：272 項通過、0 項失敗，涵蓋 35 個內容頁。詳見 GITHUB_PUBLISH_RESULTS.md 與公開儲存庫 checks/online-checks.json。
