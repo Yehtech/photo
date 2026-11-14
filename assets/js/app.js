@@ -5,6 +5,9 @@
    ========================================================= */
 (() => {
   'use strict';
+  const isEnglish = document.documentElement.lang === 'en';
+  const assetPrefix = isEnglish ? '../' : '';
+
 
   /* ---------- 分類（需與 .pages.yml 的 category 選項一致） ---------- */
   const CATEGORIES = [
@@ -41,18 +44,18 @@
   const src = (url) => {
     if (!url) return '';
     if (/^(https?:)?\/\//.test(url) || url.startsWith('data:')) return url;
-    return url.replace(/^\/+/, '');
+    return assetPrefix + url.replace(/^\/+/, '');
   };
   // 縮圖（由 GitHub Action 自動產生於 images/thumbs/），找不到時自動改用原圖
   const thumb = (url) => {
     const s = src(url);
-    return s.startsWith('images/uploads/') ? s.replace('images/uploads/', 'images/thumbs/') : s;
+    return s.startsWith(assetPrefix + 'images/uploads/') ? s.replace('images/uploads/', 'images/thumbs/') : s;
   };
   const imgTag = (url, { alt = '', useThumb = false, eager = false, cls = '' } = {}) => {
     const full = src(url);
     const s = useThumb ? thumb(url) : full;
     const fallback = s !== full ? ` onerror="this.onerror=null;this.src='${esc(full)}'"` : '';
-    const dimensions = window.PHOTO_IMAGE_SIZES?.[s];
+    const dimensions = window.PHOTO_IMAGE_SIZES?.[s.replace(/^\.\.\//, '')];
     const size = dimensions ? ` width="${dimensions.width}" height="${dimensions.height}"` : '';
     return `<img src="${esc(s)}" alt="${esc(alt)}"${size}${cls ? ` class="${cls}"` : ''} loading="${eager ? 'eager' : 'lazy'}" decoding="async"${fallback}>`;
   };
@@ -60,7 +63,7 @@
   const cache = {};
   const load = (name) => {
     if (!cache[name]) {
-      cache[name] = fetch(`content/${name}.json`, { cache: 'no-cache' }).then((r) => {
+      cache[name] = fetch(`${isEnglish ? '../content/en/' : 'content/'}${name}.json`, { cache: 'no-cache' }).then((r) => {
         if (!r.ok) throw new Error(`無法讀取 content/${name}.json`);
         return r.json();
       });

@@ -13,6 +13,11 @@ on:
       - "content/**"
       - "seo.config.json"
       - "scripts/build-seo.cjs"
+      - "scripts/build-locales.cjs"
+      - "scripts/translations.en.json"
+      - "assets/js/app.js"
+      - "package.json"
+      - "package-lock.json"
       - "scripts/write-site-metadata.cjs"
       - "scripts/make_thumbs.py"
       - ".github/workflows/thumbnails.yml"
@@ -46,13 +51,16 @@ jobs:
         with:
           node-version: "22"
 
+      - name: 安裝建置相依套件
+        run: npm ci --ignore-scripts
+
       - name: 更新靜態內容與 SEO
         run: node scripts/build-seo.cjs
 
       - name: 提交縮圖
         run: |
           git add -A images/thumbs
-          git add -- '*.html' assets/js/image-sizes.js robots.txt scripts/generated-albums.json
+          git add -- '*.html' assets/js/image-sizes.js assets/js/app.en.js robots.txt scripts/generated-albums.json scripts/generated-locales.json en content/en
           if [ -f sitemap.xml ]; then git add sitemap.xml; fi
           if git diff --cached --quiet; then
             echo "縮圖沒有變動，不需提交。"

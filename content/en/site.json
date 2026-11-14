@@ -1,0 +1,24 @@
+{
+  "name": "LUMEN",
+  "nameEn": "Photography",
+  "logo": "",
+  "description": "LUMEN photographs portraits, weddings, brands and landscapes in Taiwan. Natural light, relaxed sessions and honest moments, thoughtfully captured.",
+  "heroImages": [
+    "/images/uploads/landscape-01.jpg",
+    "/images/uploads/wedding-01.jpg",
+    "/images/uploads/landscape-03.jpg"
+  ],
+  "heroTitle": "Portraits · Weddings · Commercial Photography",
+  "heroSubtitle": "A quiet lens for honest moments",
+  "introTitle": "Every photograph holds a moment worth keeping",
+  "intro": "Hello, I am the photographer behind LUMEN.\nI love natural light and unposed expressions. We can chat during the session so you feel comfortable in front of the camera.\nWhether you are marking a milestone, creating images for a brand or documenting this moment in your life, I would love to hear your ideas.",
+  "contact": {
+    "email": "hello@example.com",
+    "phone": "0912-345-678",
+    "lineId": "@lumenphoto",
+    "lineUrl": "https://line.me/ti/p/~lumenphoto",
+    "instagram": "https://www.instagram.com/",
+    "facebook": "https://www.facebook.com/",
+    "location": "Taipei / New Taipei City; available throughout Taiwan"
+  }
+}

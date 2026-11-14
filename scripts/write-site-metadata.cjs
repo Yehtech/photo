@@ -17,7 +17,6 @@ const files=fs.readdirSync(root).filter(f=>f.endsWith('.html') && !['admin.html'
 const urls=[];
 for(const file of files) {
   const target=path.join(root,file);let html=fs.readFileSync(target,'utf8');
-  if(/<meta\b[^>]*name="robots"[^>]*content="[^"]*noindex/i.test(html))continue;
   html=html.replace(/\s*<!-- SITE_SEO_START -->[\s\S]*?<!-- SITE_SEO_END -->/g,'');
   const page=config.pages?.[file] || {};
   const org={'@context':'https://schema.org','@type':'Organization',name:page.organizationName || name};
@@ -53,3 +52,5 @@ if(base) {
   fs.writeFileSync(path.join(root,'robots.txt'),`User-agent: *\nAllow: /\n\nSitemap: ${new URL('sitemap.xml',base).href}\n`);
 }
 console.log(base?`Generated ${urls.length} canonical URLs and sitemap.`:'Organization metadata updated; production URL is not configured, canonical/sitemap deferred.');
+
+require('./build-locales.cjs');

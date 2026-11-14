@@ -1,0 +1,104 @@
+[
+  {
+    "title": "By the Afternoon Window",
+    "slug": "afternoon-window",
+    "category": "portrait",
+    "featured": true,
+    "date": "2026-05-12",
+    "location": "Dadaocheng, Taipei",
+    "cover": "/images/uploads/portrait-01.jpg",
+    "description": "A relaxed portrait session in the natural light of an old house on a quiet afternoon.\nNo forced poses. Just be yourself.",
+    "photos": [
+      "/images/uploads/portrait-01.jpg",
+      "/images/uploads/portrait-02.jpg",
+      "/images/uploads/portrait-03.jpg",
+      "/images/uploads/portrait-04.jpg",
+      "/images/uploads/portrait-05.jpg"
+    ]
+  },
+  {
+    "title": "Amy & Ken's Wedding",
+    "slug": "wedding-amy-ken",
+    "category": "wedding",
+    "featured": true,
+    "date": "2026-03-21",
+    "location": "Taichung",
+    "cover": "/images/uploads/wedding-01.jpg",
+    "description": "From the morning preparations to the last dance, a record of their day together.",
+    "photos": [
+      "/images/uploads/wedding-01.jpg",
+      "/images/uploads/wedding-02.jpg",
+      "/images/uploads/wedding-03.jpg",
+      "/images/uploads/wedding-04.jpg",
+      "/images/uploads/wedding-05.jpg"
+    ]
+  },
+  {
+    "title": "Coffee & Everyday Life",
+    "slug": "brand-coffee",
+    "category": "commercial",
+    "featured": true,
+    "date": "2026-02-08",
+    "location": "Taipei",
+    "cover": "/images/uploads/commercial-01.jpg",
+    "description": "Brand and product photography for an independent coffee business, with warm colors that reflect its everyday character.",
+    "photos": [
+      "/images/uploads/commercial-01.jpg",
+      "/images/uploads/commercial-02.jpg",
+      "/images/uploads/commercial-03.jpg",
+      "/images/uploads/commercial-04.jpg",
+      "/images/uploads/commercial-05.jpg"
+    ]
+  },
+  {
+    "title": "Between Mountains and Sea",
+    "slug": "between-mountains-and-sea",
+    "category": "landscape",
+    "featured": true,
+    "date": "2025-11-02",
+    "location": "Hualien & Taitung",
+    "cover": "/images/uploads/landscape-02.jpg",
+    "description": "A slow journey along the east coast, capturing the meeting of mountains, sea and sky.",
+    "photos": [
+      "/images/uploads/landscape-01.jpg",
+      "/images/uploads/landscape-02.jpg",
+      "/images/uploads/landscape-03.jpg",
+      "/images/uploads/landscape-04.jpg",
+      "/images/uploads/landscape-05.jpg",
+      "/images/uploads/landscape-06.jpg"
+    ]
+  },
+  {
+    "title": "Annual Brand Launch",
+    "slug": "annual-launch-event",
+    "category": "event",
+    "featured": false,
+    "date": "2025-09-18",
+    "location": "Xinyi District, Taipei",
+    "cover": "/images/uploads/event-01.jpg",
+    "description": "An annual corporate launch, capturing the atmosphere and every important moment.",
+    "photos": [
+      "/images/uploads/event-01.jpg",
+      "/images/uploads/event-02.jpg",
+      "/images/uploads/event-03.jpg",
+      "/images/uploads/event-04.jpg"
+    ]
+  },
+  {
+    "title": "City Walk",
+    "slug": "city-walk",
+    "category": "street",
+    "featured": true,
+    "date": "2025-07-30",
+    "location": "Taipei & Tokyo",
+    "cover": "/images/uploads/street-01.jpg",
+    "description": "Wandering through the city and recording the everyday scenes that pass us by.",
+    "photos": [
+      "/images/uploads/street-01.jpg",
+      "/images/uploads/street-02.jpg",
+      "/images/uploads/street-03.jpg",
+      "/images/uploads/street-04.jpg",
+      "/images/uploads/street-05.jpg"
+    ]
+  }
+]

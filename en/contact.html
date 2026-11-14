@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-seo-title="Photography Booking & Inquiries | LUMEN">Photography Booking & Inquiries | LUMEN</title>
+  <meta name="description" content="Contact LUMEN about portraits, weddings or commercial photography. Share your date, location and ideas to discuss availability and a tailored quote." data-seo-description="Contact LUMEN about portraits, weddings or commercial photography. Share your date, location and ideas to discuss availability and a tailored quote.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Noto+Sans+TC:wght@300;400&family=Noto+Serif+TC:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <meta property="og:title" content="Photography Booking & Inquiries | LUMEN">
+  <meta property="og:description" content="Contact LUMEN about portraits, weddings or commercial photography. Share your date, location and ideas to discuss availability and a tailored quote.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary">
+<noscript id="seo-noscript"><style>.nav{display:flex!important;position:static!important;flex-wrap:wrap;gap:12px}.site-header .container{flex-wrap:wrap}.reveal{opacity:1!important;transform:none!important}</style></noscript>
+
+<!-- SITE_SEO_START -->
+
+<meta property="og:url" content="https://yehtech.github.io/photo/en/contact.html">
+<meta property="og:image" content="https://yehtech.github.io/photo/images/uploads/landscape-01.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"LUMEN Photography","url":"https://yehtech.github.io/photo/en/"}</script>
+<!-- SITE_SEO_END -->
+<link href="https://yehtech.github.io/photo/en/contact.html" rel="canonical"><link href="https://yehtech.github.io/photo/contact.html" hreflang="zh-TW" rel="alternate"><link href="https://yehtech.github.io/photo/en/contact.html" hreflang="en" rel="alternate"><link href="https://yehtech.github.io/photo/contact.html" hreflang="x-default" rel="alternate"></head>
+<body data-page="contact">
+  <header class="site-header" id="site-header"><div class="container"><a class="brand" href="index.html">LUMEN <small>Photography</small></a><nav class="nav"><a href="index.html">Home</a><a href="works.html">Portfolio</a><a href="about.html">About Me</a><a href="services.html">Services &amp; Pricing</a><a href="contact.html">Contact</a></nav></div></header>
+  <main id="app">
+    <div class="page container">
+      <div class="page-sheet">
+        <header class="page-head">
+          <span class="eyebrow">Contact</span>
+          <h1>Book a Consultation</h1>
+          <p>Tell me what you would like to photograph, your preferred date and location. I aim to reply within 1–2 business days.</p>
+        </header>
+
+        <div class="contact">
+        <!-- 聯絡資訊由 app.js 依 content/site.json 填入 -->
+        <aside class="contact-info" id="contact-info"></aside>
+
+        <!--
+          表單由 Netlify Forms 接收（網站需部署在 Netlify 才能送出）。
+          送出的內容可在 Netlify 後台 Forms 查看，也可設定寄到你的 Email。
+          若改欄位名稱，Netlify 需重新部署才會偵測到。
+        -->
+        <form class="form" id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="contact">
+          <p class="visually-hidden" aria-hidden="true">
+            <label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+          </p>
+
+          <div class="field">
+            <label for="f-name">Name <span class="req">*</span></label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="f-email">Email <span class="req">*</span></label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="f-phone">Phone</label>
+            <input id="f-phone" name="phone" type="tel" autocomplete="tel">
+          </div>
+          <div class="field">
+            <label for="f-line">LINE ID</label>
+            <input id="f-line" name="line" type="text">
+          </div>
+          <div class="field">
+            <label for="f-type">Session Type <span class="req">*</span></label>
+            <select id="f-type" name="type" required>
+              <option value="">Please select</option>
+              <!-- 其餘選項由 app.js 依作品分類自動加入 -->
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-date">Preferred Date</label>
+            <input id="f-date" name="date" type="date">
+          </div>
+          <div class="field full">
+            <label for="f-message">What do you have in mind? <span class="req">*</span></label>
+            <textarea id="f-message" name="message" placeholder="For example: number of people, location, style and budget..." required></textarea>
+          </div>
+          <div class="full">
+            <button class="btn btn--solid" type="submit">Send</button>
+          </div>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+  <footer class="site-footer" id="site-footer"><div class="container"><a class="brand" href="index.html">LUMEN <small>Photography</small></a><a href="contact.html">Book a Consultation</a><small>© 2026 LUMEN. All rights reserved.</small></div></footer>
+  <script src="../assets/js/image-sizes.js" defer></script>
+  <script src="../assets/js/app.en.js" defer></script>
+<a style="position:fixed;bottom:20px;left:16px;z-index:1000;display:inline-flex;align-items:center;justify-content:center;min-width:48px;min-height:44px;padding:8px 12px;background:#fff;color:#172033;border:1px solid #8893a5;border-radius:8px;font:600 14px system-ui;text-decoration:none;box-shadow:0 2px 8px #0002" data-locale-types="{&quot;Portraits&quot;:&quot;人像／寫真&quot;,&quot;Weddings&quot;:&quot;婚禮／婚紗&quot;,&quot;Commercial & Products&quot;:&quot;商業／商品&quot;,&quot;Landscape & Travel&quot;:&quot;風景／旅行&quot;,&quot;Events&quot;:&quot;活動紀錄&quot;,&quot;Street & Documentary&quot;:&quot;街拍／紀實&quot;,&quot;Portrait Session&quot;:&quot;個人寫真&quot;,&quot;Wedding Coverage&quot;:&quot;婚禮紀錄&quot;,&quot;Commercial & Brand Photography&quot;:&quot;商業／品牌攝影&quot;,&quot;Other&quot;:&quot;其他&quot;}" aria-label="Switch to Traditional Chinese" lang="zh-TW" hreflang="zh-TW" href="../contact.html" class="locale-switch">繁中</a><script data-locale-generated="true" defer src="../assets/js/locale-switch.js"></script></body>
+</html>

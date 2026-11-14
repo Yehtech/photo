@@ -1,0 +1,71 @@
+{
+  "intro": "These packages are a starting point and can be adjusted to your needs.\nShare your ideas through the contact form or LINE for a tailored quote.",
+  "packages": [
+    {
+      "name": "Portrait Session",
+      "price": "From NT$4,800",
+      "duration": "1.5 hours",
+      "image": "/images/uploads/portrait-02.jpg",
+      "description": "For personal branding, birthdays and graduation portraits.",
+      "includes": [
+        "1.5-hour session at one location",
+        "15 retouched photographs",
+        "All delivered photographs color-graded",
+        "Online gallery delivered within 7 business days"
+      ],
+      "recommended": false
+    },
+    {
+      "name": "Wedding Coverage",
+      "price": "From NT$18,000",
+      "duration": "Half day / Full day",
+      "image": "/images/uploads/wedding-02.jpg",
+      "description": "Capture the important moments throughout your wedding day.",
+      "includes": [
+        "Ceremony and reception coverage",
+        "60 retouched photographs",
+        "All delivered photographs color-graded (approximately 400 or more)",
+        "Online photo gallery",
+        "Optional second photographer"
+      ],
+      "recommended": true
+    },
+    {
+      "name": "Commercial & Brand Photography",
+      "price": "From NT$8,000",
+      "duration": "Quoted to Your Requirements",
+      "image": "/images/uploads/commercial-02.jpg",
+      "description": "Product images, brand campaigns, interiors and team portraits.",
+      "includes": [
+        "Pre-session discussion of requirements and style",
+        "Studio or location photography",
+        "Files sized for web or print use",
+        "Invoices available"
+      ],
+      "recommended": false
+    }
+  ],
+  "process": [
+    {
+      "title": "Get in Touch",
+      "text": "Use the form or LINE to share your session type, preferred date and ideas."
+    },
+    {
+      "title": "Confirm Your Quote",
+      "text": "After discussing the details, I will provide a quote. A deposit secures your date once you confirm."
+    },
+    {
+      "title": "Your Session",
+      "text": "Relax and enjoy the session. I will take care of the photography."
+    },
+    {
+      "title": "Receive Your Photographs",
+      "text": "Color-graded and retouched photographs are delivered within your package's timeframe."
+    }
+  ],
+  "notes": [
+    "A 30% deposit is due after confirming your date.",
+    "Travel fees apply outside Taipei and New Taipei City.",
+    "One free rescheduling is available if weather affects the session."
+  ]
+}

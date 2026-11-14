@@ -1,4 +1,5 @@
 {
-    "siteUrl":  "https://yehtech.github.io/photo/",
-    "shareImage":  "images/uploads/landscape-01.jpg"
+  "siteUrl": "https://yehtech.github.io/photo/",
+  "shareImage": "images/uploads/landscape-01.jpg",
+  "indexable": true
 }

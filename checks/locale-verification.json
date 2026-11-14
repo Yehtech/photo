@@ -1,0 +1,218 @@
+{
+  "checkedAt": "2026-11-14T04:57:48.712Z",
+  "checks": 3292,
+  "pages": 70,
+  "englishPages": 35,
+  "results": [
+    {
+      "folder": "ETK",
+      "rel": "en/about.html",
+      "prefix": "/etk-websites/etk/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK",
+      "rel": "en/applications.html",
+      "prefix": "/etk-websites/etk/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK",
+      "rel": "en/contact.html",
+      "prefix": "/etk-websites/etk/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK",
+      "rel": "en/index.html",
+      "prefix": "/etk-websites/etk/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK",
+      "rel": "en/products.html",
+      "prefix": "/etk-websites/etk/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK",
+      "rel": "en/technology.html",
+      "prefix": "/etk-websites/etk/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK copy",
+      "rel": "en/about.html",
+      "prefix": "/etk-websites/etk-copy/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK copy",
+      "rel": "en/applications.html",
+      "prefix": "/etk-websites/etk-copy/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK copy",
+      "rel": "en/contact.html",
+      "prefix": "/etk-websites/etk-copy/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK copy",
+      "rel": "en/index.html",
+      "prefix": "/etk-websites/etk-copy/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK copy",
+      "rel": "en/products.html",
+      "prefix": "/etk-websites/etk-copy/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK copy",
+      "rel": "en/technology.html",
+      "prefix": "/etk-websites/etk-copy/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK copy2",
+      "rel": "en/about.html",
+      "prefix": "/etk-websites/etk-copy2/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK copy2",
+      "rel": "en/applications.html",
+      "prefix": "/etk-websites/etk-copy2/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK copy2",
+      "rel": "en/contact.html",
+      "prefix": "/etk-websites/etk-copy2/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK copy2",
+      "rel": "en/index.html",
+      "prefix": "/etk-websites/etk-copy2/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK copy2",
+      "rel": "en/products.html",
+      "prefix": "/etk-websites/etk-copy2/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK copy2",
+      "rel": "en/technology.html",
+      "prefix": "/etk-websites/etk-copy2/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK copy3",
+      "rel": "en/about.html",
+      "prefix": "/etk-websites/etk-copy3/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK copy3",
+      "rel": "en/applications.html",
+      "prefix": "/etk-websites/etk-copy3/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK copy3",
+      "rel": "en/contact.html",
+      "prefix": "/etk-websites/etk-copy3/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK copy3",
+      "rel": "en/index.html",
+      "prefix": "/etk-websites/etk-copy3/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK copy3",
+      "rel": "en/products.html",
+      "prefix": "/etk-websites/etk-copy3/",
+      "desktop": true
+    },
+    {
+      "folder": "ETK copy3",
+      "rel": "en/technology.html",
+      "prefix": "/etk-websites/etk-copy3/",
+      "desktop": true
+    },
+    {
+      "folder": "photo",
+      "rel": "en/about.html",
+      "prefix": "/photo/",
+      "desktop": true
+    },
+    {
+      "folder": "photo",
+      "rel": "en/album-afternoon-window.html",
+      "prefix": "/photo/",
+      "desktop": true
+    },
+    {
+      "folder": "photo",
+      "rel": "en/album-annual-launch-event.html",
+      "prefix": "/photo/",
+      "desktop": true
+    },
+    {
+      "folder": "photo",
+      "rel": "en/album-between-mountains-and-sea.html",
+      "prefix": "/photo/",
+      "desktop": true
+    },
+    {
+      "folder": "photo",
+      "rel": "en/album-brand-coffee.html",
+      "prefix": "/photo/",
+      "desktop": true
+    },
+    {
+      "folder": "photo",
+      "rel": "en/album-city-walk.html",
+      "prefix": "/photo/",
+      "desktop": true
+    },
+    {
+      "folder": "photo",
+      "rel": "en/album-wedding-amy-ken.html",
+      "prefix": "/photo/",
+      "desktop": true
+    },
+    {
+      "folder": "photo",
+      "rel": "en/contact.html",
+      "prefix": "/photo/",
+      "desktop": true
+    },
+    {
+      "folder": "photo",
+      "rel": "en/index.html",
+      "prefix": "/photo/",
+      "desktop": true
+    },
+    {
+      "folder": "photo",
+      "rel": "en/services.html",
+      "prefix": "/photo/",
+      "desktop": true
+    },
+    {
+      "folder": "photo",
+      "rel": "en/works.html",
+      "prefix": "/photo/",
+      "desktop": true
+    }
+  ]
+}

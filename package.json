@@ -1,0 +1,9 @@
+{
+    "devDependencies":  {
+                            "acorn":  "^8.19.0",
+                            "linkedom":  "^0.18.15"
+                        },
+    "scripts":  {
+                    "build:seo":  "node scripts/build-seo.cjs"
+                }
+}
